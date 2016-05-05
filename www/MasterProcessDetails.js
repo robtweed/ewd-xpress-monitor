@@ -70,9 +70,8 @@ var MasterProcessDetails = React.createClass({
 
   render: function() {
 
-    console.log('Rendering MasterProcessDetails!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering MasterProcessDetails!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
       <Panel 

@@ -58,9 +58,8 @@ var MainPage = React.createClass({
 
   render: function() {
 
-     console.log('rendering MainPage');
-
-     var componentPath = controller.updateComponentPath(this);
+     //console.log('rendering MainPage');
+     //var componentPath = controller.updateComponentPath(this);
 
      if (this.state.status === 'shutdown') {
        return (
@@ -75,7 +74,6 @@ var MainPage = React.createClass({
         <Banner
           title = {title}
           controller = {controller}
-          componentPath = {componentPath}
         />
 
         <ToastContainer 
@@ -90,12 +88,10 @@ var MainPage = React.createClass({
         <LoginModal
           controller = {controller}
           show = {this.showLoginModal}
-          componentPath = {componentPath}
         />
 
         <Content
           controller = {controller}
-          componentPath = {componentPath}
           status = {this.state.status}
         />
 

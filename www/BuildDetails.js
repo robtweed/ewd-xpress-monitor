@@ -58,9 +58,8 @@ var BuildDetails = React.createClass({
 
   render: function() {
 
-    console.log('Rendering Build Details!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering Build Details!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
       <Panel header={this.title}>

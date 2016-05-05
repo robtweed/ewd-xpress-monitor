@@ -31,7 +31,7 @@
 module.exports = function (controller, component) {
 
   component.onNewProps = function(newProps) {
-    console.log('Content newProps: ' + JSON.stringify(newProps));
+    //console.log('Content newProps: ' + JSON.stringify(newProps));
     if (newProps.status === 'loggedIn') {
       component.status = 'loggedIn';
     }

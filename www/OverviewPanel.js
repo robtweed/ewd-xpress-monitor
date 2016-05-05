@@ -64,7 +64,7 @@ var OverviewPanel = React.createClass({
 
   render: function() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
       <Panel collapsible expanded={this.expanded} header={this.title}>
@@ -75,19 +75,16 @@ var OverviewPanel = React.createClass({
             <Col md={4}>
               <BuildDetails
                 controller = {this.controller}
-                componentPath = {componentPath}
               />
             </Col>
             <Col md={3}>
               <MasterProcessDetails
                 controller = {this.controller}
-                componentPath = {componentPath}
               />
             </Col>
             <Col md={5}>
               <WorkerProcessDetailsTable
                 controller = {this.controller}
-                componentPath = {componentPath}
               />
             </Col>
           </Row>

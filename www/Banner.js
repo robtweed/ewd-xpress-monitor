@@ -41,8 +41,7 @@ var {
 var Banner = React.createClass({
 
   render: function() {
-    console.log('render Banner');
-
+    //console.log('render Banner');
     //this.props.controller.updateComponentPath(this);
 
     return (

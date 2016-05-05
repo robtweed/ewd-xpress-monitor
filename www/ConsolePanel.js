@@ -60,7 +60,7 @@ var ConsolePanel = React.createClass({
 
   render: function() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
       <Panel collapsible expanded={this.expanded} header={this.title}>

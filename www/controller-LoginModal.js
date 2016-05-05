@@ -34,7 +34,7 @@ module.exports = function (controller, component) {
 
   controller.LoginModal = {
     onLoginFieldChange: function(inputObj) {
-      console.log('onFieldChange - ' + inputObj.ref + '; ' + inputObj.value);
+      //console.log('onFieldChange - ' + inputObj.ref + '; ' + inputObj.value);
       component[inputObj.ref] = inputObj.value;
     }
   };

@@ -54,7 +54,7 @@ var Content = React.createClass({
 
   render: function() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     if (this.status === 'initial') {
       return (
@@ -66,18 +66,15 @@ var Content = React.createClass({
         <div>
           <OverviewContainer
             controller = {this.controller}
-            componentPath = {componentPath}
             status = {this.status} 
           /> 
           <ConsoleContainer
             controller = {this.controller}
-            componentPath = {componentPath}
             status = {this.status} 
           />
           {/*
           <MemoryContainer
             controller = {this.controller}
-            componentPath = {componentPath}
             status = {this.status}
           /> 
           */}

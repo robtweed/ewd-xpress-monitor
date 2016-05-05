@@ -53,9 +53,8 @@ var LoginField = React.createClass({
 
   render: function() {
 
-    console.log('LoginField rendering');
-
-    this.controller.updateComponentPath(this);
+    //console.log('LoginField rendering');
+    //this.controller.updateComponentPath(this);
 
     return (
       <Input

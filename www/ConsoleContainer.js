@@ -58,7 +58,7 @@ var ConsoleContainer = React.createClass({
 
   render: function() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
       <Grid
@@ -68,7 +68,6 @@ var ConsoleContainer = React.createClass({
           <Col md={12}>
             <ConsolePanel
               controller = {this.controller}
-              componentPath = {componentPath}
             />
           </Col>
         </Row>

@@ -65,9 +65,8 @@ var WorkerProcessDetails = React.createClass({
 
   render: function() {
 
-    console.log('Rendering WorkerProcessDetails Row!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering WorkerProcessDetails Row!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
       <tr>

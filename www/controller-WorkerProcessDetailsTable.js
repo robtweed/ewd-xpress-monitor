@@ -85,7 +85,7 @@ module.exports = function (controller, component) {
   controller.on('getWorkerDetails', function(messageObj) {
     component.workerDetails = messageObj.results;
     controller.emit('startTimers');
-    console.log('*** worker details: ' + JSON.stringify(component.workerDetails));
+    //console.log('*** worker details: ' + JSON.stringify(component.workerDetails));
 
     component.setState({
       status: 'dataAvailable'

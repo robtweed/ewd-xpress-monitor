@@ -58,9 +58,8 @@ var OverviewContainer = React.createClass({
 
   render: function() {
 
-    var componentPath = this.controller.updateComponentPath(this);
-
-   console.log('OverviewContainer - this.hideContainer = ' + this.hideContainer);
+    //var componentPath = this.controller.updateComponentPath(this);
+    //console.log('OverviewContainer - this.hideContainer = ' + this.hideContainer);
 
     return (
       <Grid
@@ -71,7 +70,6 @@ var OverviewContainer = React.createClass({
           <Col md={12}>
             <OverviewPanel
               controller = {this.controller}
-              componentPath = {componentPath}
             />
           </Col>
         </Row>

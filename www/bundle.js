@@ -461,8 +461,6 @@ module.exports = function (envObj, component, $, io) {
 
   // Here we do all the EWD-specific stuff
 
-  console.log('loading controller!!');
-
   envObj.on('ewd-registered', function() {
     component.setState({
       status: 'go'
@@ -538,7 +536,6 @@ module.exports = {
 };
 
 },{"./controller":6,"./loader":8}],8:[function(require,module,exports){
-(function (process){
 /*
 
  ----------------------------------------------------------------------------
@@ -584,14 +581,14 @@ module.exports = function(params) {
   if (!params.ajax) $ = require('jquery');
 
   var EWD = ewdClient.EWD;
-  console.log('cwd = ' + process.cwd());
+  //console.log('cwd = ' + process.cwd());
   EWD.application = {
     name: params.applicationName || 'unknown',
     mode: params.mode || 'development',
     log: params.log || true
   };
 
-  console.log('EWD = ' + JSON.stringify(EWD));
+  //console.log('EWD = ' + JSON.stringify(EWD));
   var MainPage = params.MainPage;
 
   var Top = React.createClass({
@@ -641,8 +638,7 @@ ReactDOM.render(React.createElement(Top, null), document.getElementById('content
 };
 
 
-}).call(this,require('_process'))
-},{"./controller":6,"_process":1,"ewd-client":2,"jquery":9,"react":429,"react-dom":263,"socket.io-client":430}],9:[function(require,module,exports){
+},{"./controller":6,"ewd-client":2,"jquery":9,"react":429,"react-dom":263,"socket.io-client":430}],9:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.2.3
  * http://jquery.com/
@@ -54098,8 +54094,7 @@ var Banner = React.createClass({
 
 
   render: function render() {
-    console.log('render Banner');
-
+    //console.log('render Banner');
     //this.props.controller.updateComponentPath(this);
 
     return React.createElement(
@@ -54198,9 +54193,8 @@ var BuildDetails = React.createClass({
 
   render: function render() {
 
-    console.log('Rendering Build Details!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering Build Details!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return React.createElement(
       Panel,
@@ -54397,7 +54391,7 @@ var ConsoleContainer = React.createClass({
 
   render: function render() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return React.createElement(
       Grid,
@@ -54411,8 +54405,7 @@ var ConsoleContainer = React.createClass({
           Col,
           { md: 12 },
           React.createElement(ConsolePanel, {
-            controller: this.controller,
-            componentPath: componentPath
+            controller: this.controller
           })
         )
       )
@@ -54488,8 +54481,6 @@ var ConsolePanel = React.createClass({
 
   render: function render() {
 
-    var componentPath = this.controller.updateComponentPath(this);
-
     return React.createElement(
       Panel,
       { collapsible: true, expanded: this.expanded, header: this.title },
@@ -54563,9 +54554,10 @@ var Content = React.createClass({
 
   render: function render() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    if (
 
-    if (this.status === 'initial') {
+    //var componentPath = this.controller.updateComponentPath(this);
+    this.status === 'initial') {
       return React.createElement('div', null);
     } else {
       return React.createElement(
@@ -54573,12 +54565,10 @@ var Content = React.createClass({
         null,
         React.createElement(OverviewContainer, {
           controller: this.controller,
-          componentPath: componentPath,
           status: this.status
         }),
         React.createElement(ConsoleContainer, {
           controller: this.controller,
-          componentPath: componentPath,
           status: this.status
         })
       );
@@ -54645,9 +54635,8 @@ var LoginField = React.createClass({
 
   render: function render() {
 
-    console.log('LoginField rendering');
-
-    this.controller.updateComponentPath(this);
+    //console.log('LoginField rendering');
+    //this.controller.updateComponentPath(this);
 
     return React.createElement(Input, {
       type: 'password',
@@ -54719,9 +54708,8 @@ var LoginModal = React.createClass({
 
   render: function render() {
 
-    console.log('LoginModal rendering');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('LoginModal rendering');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return React.createElement(
       Modal,
@@ -54750,8 +54738,7 @@ var LoginModal = React.createClass({
           fieldname: 'password',
           label: 'Management Password',
           controller: this.controller,
-          focus: true,
-          componentPath: componentPath
+          focus: true
         })
       ),
       React.createElement(
@@ -54833,9 +54820,8 @@ var MainPage = React.createClass({
 
   render: function render() {
 
-    console.log('rendering MainPage');
-
-    var componentPath = controller.updateComponentPath(this);
+    //console.log('rendering MainPage');
+    //var componentPath = controller.updateComponentPath(this);
 
     if (this.state.status === 'shutdown') {
       return React.createElement(Shutdown, {
@@ -54848,8 +54834,7 @@ var MainPage = React.createClass({
       null,
       React.createElement(Banner, {
         title: title,
-        controller: controller,
-        componentPath: componentPath
+        controller: controller
       }),
       React.createElement(ToastContainer, {
         ref: 'toastContainer',
@@ -54861,12 +54846,10 @@ var MainPage = React.createClass({
       }),
       React.createElement(LoginModal, {
         controller: controller,
-        show: this.showLoginModal,
-        componentPath: componentPath
+        show: this.showLoginModal
       }),
       React.createElement(Content, {
         controller: controller,
-        componentPath: componentPath,
         status: this.state.status
       })
     );
@@ -54950,9 +54933,8 @@ var MasterProcessDetails = React.createClass({
 
   render: function render() {
 
-    console.log('Rendering MasterProcessDetails!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering MasterProcessDetails!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return React.createElement(
       Panel,
@@ -55183,9 +55165,8 @@ var OverviewContainer = React.createClass({
 
   render: function render() {
 
-    var componentPath = this.controller.updateComponentPath(this);
-
-    console.log('OverviewContainer - this.hideContainer = ' + this.hideContainer);
+    //var componentPath = this.controller.updateComponentPath(this);
+    //console.log('OverviewContainer - this.hideContainer = ' + this.hideContainer);
 
     return React.createElement(
       Grid,
@@ -55200,8 +55181,7 @@ var OverviewContainer = React.createClass({
           Col,
           { md: 12 },
           React.createElement(OverviewPanel, {
-            controller: this.controller,
-            componentPath: componentPath
+            controller: this.controller
           })
         )
       )
@@ -55282,7 +55262,7 @@ var OverviewPanel = React.createClass({
 
   render: function render() {
 
-    var componentPath = this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return React.createElement(
       Panel,
@@ -55299,24 +55279,21 @@ var OverviewPanel = React.createClass({
             Col,
             { md: 4 },
             React.createElement(BuildDetails, {
-              controller: this.controller,
-              componentPath: componentPath
+              controller: this.controller
             })
           ),
           React.createElement(
             Col,
             { md: 3 },
             React.createElement(MasterProcessDetails, {
-              controller: this.controller,
-              componentPath: componentPath
+              controller: this.controller
             })
           ),
           React.createElement(
             Col,
             { md: 5 },
             React.createElement(WorkerProcessDetailsTable, {
-              controller: this.controller,
-              componentPath: componentPath
+              controller: this.controller
             })
           )
         )
@@ -55595,9 +55572,8 @@ var WorkerProcessDetails = React.createClass({
 
   render: function render() {
 
-    console.log('Rendering WorkerProcessDetails Row!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering WorkerProcessDetails Row!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return React.createElement(
       'tr',
@@ -55722,9 +55698,8 @@ var WorkerProcessDetailsTable = React.createClass({
 
   render: function render() {
 
-    console.log('Rendering WorkerProcessDetails Table!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering WorkerProcessDetails Table!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     var rows = [];
     var row;
@@ -55737,7 +55712,6 @@ var WorkerProcessDetailsTable = React.createClass({
         noOfRequests: details.noOfMessages,
         available: details.available.toString(),
         controller: this.controller,
-        componentPath: componentPath,
         stopWorker: this.stopWorker
       });
       rows.push(row);
@@ -56035,7 +56009,7 @@ module.exports = function (controller, component) {
 module.exports = function (controller, component) {
 
   component.onNewProps = function (newProps) {
-    console.log('Content newProps: ' + JSON.stringify(newProps));
+    //console.log('Content newProps: ' + JSON.stringify(newProps));
     if (newProps.status === 'loggedIn') {
       component.status = 'loggedIn';
     }
@@ -56152,7 +56126,7 @@ module.exports = function (controller, component) {
 
   controller.LoginModal = {
     onLoginFieldChange: function onLoginFieldChange(inputObj) {
-      console.log('onFieldChange - ' + inputObj.ref + '; ' + inputObj.value);
+      //console.log('onFieldChange - ' + inputObj.ref + '; ' + inputObj.value);
       component[inputObj.ref] = inputObj.value;
     }
   };
@@ -56600,7 +56574,7 @@ module.exports = function (controller, component) {
   controller.on('getWorkerDetails', function (messageObj) {
     component.workerDetails = messageObj.results;
     controller.emit('startTimers');
-    console.log('*** worker details: ' + JSON.stringify(component.workerDetails));
+    //console.log('*** worker details: ' + JSON.stringify(component.workerDetails));
 
     component.setState({
       status: 'dataAvailable'

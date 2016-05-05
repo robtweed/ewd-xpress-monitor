@@ -73,9 +73,8 @@ var WorkerProcessDetailsTable = React.createClass({
 
   render: function() {
 
-    console.log('Rendering WorkerProcessDetails Table!');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('Rendering WorkerProcessDetails Table!');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     var rows = [];
     var row;
@@ -89,7 +88,6 @@ var WorkerProcessDetailsTable = React.createClass({
           noOfRequests = {details.noOfMessages}
           available = {details.available.toString()}
           controller = {this.controller}
-          componentPath = {componentPath}
           stopWorker = {this.stopWorker}
         />
       );

@@ -51,9 +51,8 @@ var LoginModal = React.createClass({
 
   render: function() {
 
-    console.log('LoginModal rendering');
-
-    var componentPath = this.controller.updateComponentPath(this);
+    //console.log('LoginModal rendering');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
 
@@ -77,7 +76,6 @@ var LoginModal = React.createClass({
               label='Management Password' 
               controller = {this.controller}
               focus={true}
-              componentPath = {componentPath}
             />
           </Modal.Body>
 
