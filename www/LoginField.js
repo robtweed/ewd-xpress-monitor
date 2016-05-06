@@ -34,7 +34,7 @@ var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
 
 var {
-  Input
+  FormControl
 } = ReactBootstrap;
 
 var LoginField = React.createClass({
@@ -47,27 +47,26 @@ var LoginField = React.createClass({
     this.controller = require('./controller-LoginField')(this.props.controller, this);
   },
 
-  componentDidMount: function() {
-    this.focusOnAccessCode();
-  },
-
   render: function() {
 
     //console.log('LoginField rendering');
     //this.controller.updateComponentPath(this);
 
     return (
-      <Input
+     <div> 
+      <FormControl
         type='password'
+        autoFocus
         value={this.state.value}
         placeholder={this.props.placeholder}
         bsStyle={this.validationState()}
-        hasFeedback
         ref={this.props.fieldname}
         groupClassName='password-input'
         label={this.props.label}
         onChange={this.handleChange}
       />
+      <FormControl.Feedback />
+     </div>
     )
   }
 });

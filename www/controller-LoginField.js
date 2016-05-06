@@ -30,11 +30,11 @@
 
 module.exports = function (controller, component) {
 
-  component.handleChange = function() {
+  component.handleChange = function(e) {
     // update display of field in input component:
 
     var fieldName = component.props.fieldname;
-    var value = component.refs[fieldName].getValue();
+    var value = e.target.value;
 
     component.setState({
       value: value
@@ -46,13 +46,6 @@ module.exports = function (controller, component) {
       value: value,
       ref: fieldName
     });
-  };
-
-  component.focusOnAccessCode = function() {
-    var props = component.props;
-    if (props.focus) {
-      component.refs[props.fieldname].getInputDOMNode().focus();
-    }
   };
 
   component.validationState = function() {
