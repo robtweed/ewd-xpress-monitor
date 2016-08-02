@@ -96,8 +96,8 @@ var BuildDetails = React.createClass({
               <td>{this.qxBuild}</td>
             </tr>
             <tr>
-              <td>ewd-appRunner</td>
-              <td>{this.appRunnerBuild}</td>
+              <td>ewd-express</td>
+              <td>{this.xpressBuild}</td>
             </tr>
           </tbody>
         </Table>

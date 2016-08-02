@@ -43,7 +43,7 @@ module.exports = function (controller, component) {
     component.qoper8Build = data.qoper8Build.no;
     component.docStoreBuild = data.docStoreBuild.no;
     component.qxBuild = data.qxBuild;
-    component.appRunnerBuild = data.appRunnerBuild.no;
+    component.xpressBuild = data.xpressBuild.no;
     component.setState({
       status: 'dataAvailable'
     });

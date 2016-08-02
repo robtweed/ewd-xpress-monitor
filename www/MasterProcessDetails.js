@@ -58,7 +58,7 @@ var MasterProcessDetails = React.createClass({
       <Tooltip 
         id = "masterProcessShutdownBtn"
       >
-        Shutdown ewd-appRunner
+        Shutdown ewd-xpress
       </Tooltip>
     );
 
