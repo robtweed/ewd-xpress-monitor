@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  22 August 2016
 
 */
 
@@ -58,6 +58,12 @@ var OverviewPanel = React.createClass({
     );
   },
 
+  componentWillUpdate: function() {
+    this.title = (
+      <h1>Overview {this.serverName}</h1>
+    );
+  },
+
   componentWillReceiveProps: function(newProps) {
     this.onNewProps(newProps);
   },
@@ -66,31 +72,38 @@ var OverviewPanel = React.createClass({
 
     //var componentPath = this.controller.updateComponentPath(this);
 
-    return (
-      <Panel collapsible expanded={this.expanded} header={this.title}>
-        <Grid
-          fluid = {true}
-        >
-          <Row>
-            <Col md={4}>
-              <BuildDetails
-                controller = {this.controller}
-              />
-            </Col>
-            <Col md={3}>
-              <MasterProcessDetails
-                controller = {this.controller}
-              />
-            </Col>
-            <Col md={5}>
-              <WorkerProcessDetailsTable
-                controller = {this.controller}
-              />
-            </Col>
-          </Row>
-        </Grid>
-      </Panel>
-    );
+    if (this.state.status === 'initial') {
+      return (
+        <Panel collapsible expanded={this.expanded} header={this.title} />
+      );
+    }
+    else {
+      return (
+        <Panel collapsible expanded={this.expanded} header={this.title}>
+          <Grid
+            fluid = {true}
+          >
+            <Row>
+              <Col md={4}>
+                <BuildDetails
+                  controller = {this.controller}
+                />
+              </Col>
+              <Col md={3}>
+                <MasterProcessDetails
+                  controller = {this.controller}
+                />
+              </Col>
+              <Col md={5}>
+                <WorkerProcessDetailsTable
+                  controller = {this.controller}
+                />
+              </Col>
+            </Row>
+          </Grid>
+        </Panel>
+      );
+    }
   }
 });
 

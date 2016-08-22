@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  22 August 2016
 
 */
 
@@ -35,7 +35,20 @@ module.exports = function (controller, component) {
   };
 
   component.expanded = true;
-  component.serverName = 'My EWD App Server';
+  component.serverName = 'ewd-xpress';
+
+  controller.on('getServerName', function(responseObj) {
+    if (responseObj.message.serverName && responseObj.message.serverName !== '') {
+      component.serverName = responseObj.message.serverName;
+      component.setState({
+        status: 'updated'
+      });
+    }
+  });
+
+  controller.send({
+    type: 'getServerName'
+  });
 
   return controller;
 };
