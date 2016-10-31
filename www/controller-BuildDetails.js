@@ -31,7 +31,7 @@
 module.exports = function (controller, component) {
 
   component.onNewProps = function(newProps) {
-    console.log('BuildDetails newProps: ' + JSON.stringify(newProps));
+    //console.log('BuildDetails newProps: ' + JSON.stringify(newProps));
   };
 
   controller.on('getBuildDetails', function(messageObj) {

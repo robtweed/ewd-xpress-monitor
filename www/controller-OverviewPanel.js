@@ -31,7 +31,7 @@
 module.exports = function (controller, component) {
 
   component.onNewProps = function(newProps) {
-    console.log('OverviewPanel newProps: ' + JSON.stringify(newProps));
+    //console.log('OverviewPanel newProps: ' + JSON.stringify(newProps));
   };
 
   component.expanded = true;

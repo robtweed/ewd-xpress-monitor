@@ -31,7 +31,6 @@
 module.exports = function (controller, component) {
 
   component.onNewProps = function(newProps) {
-    console.log('ConsolePanel newProps: ' + JSON.stringify(newProps));
   };
 
   component.expanded = true;
