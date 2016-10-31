@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  31 October 2016
+  27 April 2016
 
 */
 
@@ -32,42 +32,49 @@
 
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
-
 var {
-  FormControl
+  Grid,
+  Row,
+  Col
 } = ReactBootstrap;
 
-var LoginField = React.createClass({
+var DocumentStorePanel = require('./DocumentStorePanel');
+
+var DocumentStoreContainer = React.createClass({
 
   getInitialState: function() {
-    return {value:''}
+    return {
+      status: 'initial'
+    }
   },
 
   componentWillMount: function() {
-    this.controller = require('./controller-LoginField')(this.props.controller, this);
+    this.controller = require('./controller-DocumentStoreContainer')(this.props.controller, this);
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.onNewProps(newProps);
   },
 
   render: function() {
 
-    //console.log('LoginField rendering');
-    //this.controller.updateComponentPath(this);
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
-     <div> 
-      <FormControl
-        type='password'
-        autoFocus
-        value={this.state.value}
-        placeholder={this.props.placeholder}
-        bsStyle={this.validationState()}
-        ref={this.props.fieldname}
-        label={this.props.label}
-        onChange={this.handleChange}
-      />
-      <FormControl.Feedback />
-     </div>
-    )
+      <Grid
+        className = {this.hideContainer ? 'hidden' : ''}
+      >
+        <Row>
+          <Col md={12}>
+            <DocumentStorePanel
+              controller = {this.controller}
+            />
+          </Col>
+        </Row>
+      </Grid>
+    );
+
   }
 });
 
-module.exports = LoginField;
+module.exports = DocumentStoreContainer;

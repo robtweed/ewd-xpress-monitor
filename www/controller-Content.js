@@ -24,17 +24,14 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
 module.exports = function (controller, component) {
 
   component.onNewProps = function(newProps) {
-    //console.log('Content newProps: ' + JSON.stringify(newProps));
-    if (newProps.status === 'loggedIn') {
-      component.status = 'loggedIn';
-    }
+    component.status = newProps.status;
   };
 
   component.status = 'initial';

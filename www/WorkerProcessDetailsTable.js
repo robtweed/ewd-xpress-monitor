@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -81,10 +81,12 @@ var WorkerProcessDetailsTable = React.createClass({
     var details;
     for (var i = 0; i < this.workerDetails.length; i++) {
       details = this.workerDetails[i];
+	  //console.log('** details = ' + JSON.stringify(details));
       row = (
         <WorkerProcessDetails
           key = {details.pid}
           pid = {details.pid}
+          memory = {details.memory}
           noOfRequests = {details.noOfMessages}
           available = {details.available.toString()}
           controller = {this.controller}
@@ -96,7 +98,8 @@ var WorkerProcessDetailsTable = React.createClass({
 
     return (
       <Panel 
-        header = {this.title}
+        header={this.title}
+        bsStyle="info"
       >
         <Table 
           responsive  
@@ -126,4 +129,3 @@ var WorkerProcessDetailsTable = React.createClass({
 });
 
 module.exports = WorkerProcessDetailsTable;
-

@@ -24,11 +24,13 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
 module.exports = function (controller, component) {
+
+  component.workers = {};
 
   component.onNewProps = function(newProps) {
     //console.log('WorkerProcessDetailsTable newProps: ' + JSON.stringify(newProps));
@@ -83,9 +85,9 @@ module.exports = function (controller, component) {
   component.workerDetails = [];
 
   controller.on('getWorkerDetails', function(messageObj) {
+    //console.log('getWorkerDetails: ' + JSON.stringify(messageObj));
     component.workerDetails = messageObj.results;
     controller.emit('startTimers');
-    //console.log('*** worker details: ' + JSON.stringify(component.workerDetails));
 
     component.setState({
       status: 'dataAvailable'

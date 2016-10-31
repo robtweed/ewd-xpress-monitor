@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -62,7 +62,10 @@ var BuildDetails = React.createClass({
     //var componentPath = this.controller.updateComponentPath(this);
 
     return (
-      <Panel header={this.title}>
+      <Panel
+	    header={this.title}
+		bsStyle="info"
+	  >
         <Table responsive  className="overviewTable">
           <thead>
             <tr>

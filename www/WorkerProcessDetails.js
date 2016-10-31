@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -36,6 +36,8 @@ var {
   Button,
   Glyphicon,
   OverlayTrigger,
+  Popover,
+  Table,
   Tooltip
 } = ReactBootstrap;
 
@@ -68,9 +70,40 @@ var WorkerProcessDetails = React.createClass({
     //console.log('Rendering WorkerProcessDetails Row!');
     //var componentPath = this.controller.updateComponentPath(this);
 
+    var title = 'Worker ' + this.props.pid + ' Memory';
+
+    var memoryPopover = (
+      <Popover id="worker-process-memory" title={title}>
+        <Table>
+          <tbody>
+            <tr>
+              <td>rss:</td>
+              <td>{this.props.memory.rss}</td>
+            </tr>
+            <tr>
+              <td>heapTotal:</td>
+              <td>{this.props.memory.heapTotal}</td>
+            </tr>
+            <tr>
+              <td>heapUsed:</td>
+              <td>{this.props.memory.heapUsed}</td>
+            </tr>
+          </tbody>
+        </Table>
+      </Popover>
+    );
+
     return (
       <tr>
-        <td>{this.props.pid}</td>
+        <td>
+          <OverlayTrigger
+            trigger={['hover', 'focus']}
+            placement="left"
+            overlay={memoryPopover}
+          >
+            <span>{this.props.pid}</span>
+          </OverlayTrigger>
+        </td>
         <td>{this.props.noOfRequests}</td>
         <td>{this.props.available}</td>
         <td className = "pushRight">
@@ -94,4 +127,3 @@ var WorkerProcessDetails = React.createClass({
 });
 
 module.exports = WorkerProcessDetails;
-

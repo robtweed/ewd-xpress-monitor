@@ -24,11 +24,13 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
 module.exports = function (controller, component) {
+
+  //controller.log = true;
 
   controller.toastr = function(type, text) {
     if (type && type !== '' && component.refs && component.refs.toastContainer && component.refs.toastContainer[type]) {
@@ -84,6 +86,18 @@ module.exports = function (controller, component) {
     component.setState({
       status: 'shutdown'
     });
+  });
+
+  controller.on('overview', function() {
+	  component.setState({
+        status: 'overview'
+      });
+  });
+
+  controller.on('docstore', function() {
+	  component.setState({
+        status: 'docstore'
+      });
   });
 
   controller.on('ewd-reregistered', function() {

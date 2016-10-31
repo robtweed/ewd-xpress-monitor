@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -32,6 +32,8 @@
 
 var React = require('react');
 var ReactToastr = require('react-toastr');
+var jQuery = require('jquery');
+window.$ = window.jQuery = jQuery;
 
 var {ToastContainer} = ReactToastr;
 var ToastMessageFactory = React.createFactory(ReactToastr.ToastMessage.animation);
@@ -81,7 +83,6 @@ var MainPage = React.createClass({
           toastMessageFactory={ToastMessageFactory}
           className="toast-top-right"
           newestOnTop={true}
-          autoDismiss={true}
           target="body"
         />
 

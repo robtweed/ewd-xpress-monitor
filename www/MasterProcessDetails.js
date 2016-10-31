@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -38,6 +38,7 @@ var {
   Button,
   Glyphicon,
   OverlayTrigger,
+  Popover,
   Tooltip
 } = ReactBootstrap;
 
@@ -73,9 +74,34 @@ var MasterProcessDetails = React.createClass({
     //console.log('Rendering MasterProcessDetails!');
     //var componentPath = this.controller.updateComponentPath(this);
 
+    var memoryPopover = (
+      <Popover
+        id="master-process-memory"
+        title="Master Process Memory"
+      >
+        <Table>
+          <tbody>
+            <tr>
+              <td>rss:</td>
+              <td>{this.master.memory.rss}</td>
+            </tr>
+            <tr>
+              <td>heapTotal:</td>
+              <td>{this.master.memory.heapTotal}</td>
+            </tr>
+            <tr>
+              <td>heapUsed:</td>
+              <td>{this.master.memory.heapUsed}</td>
+            </tr>
+          </tbody>
+        </Table>
+      </Popover>
+    );
+
     return (
       <Panel 
-        header = {this.title}
+        header={this.title}
+        bsStyle="info"
       >
         <Table 
           responsive  
@@ -83,7 +109,15 @@ var MasterProcessDetails = React.createClass({
         >
           <tbody>
             <tr>
-              <td>{this.pid}</td>
+              <td>
+                <OverlayTrigger
+                  trigger={['hover', 'focus']}
+                  placement="right"
+                  overlay={memoryPopover}
+                >
+                  <span>{this.pid}</span>
+                </OverlayTrigger>
+              </td>
               <td className="pushRight">
                 <OverlayTrigger 
                   placement="top" 
@@ -116,4 +150,3 @@ var MasterProcessDetails = React.createClass({
 });
 
 module.exports = MasterProcessDetails;
-

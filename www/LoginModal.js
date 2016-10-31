@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -61,7 +61,6 @@ var LoginModal = React.createClass({
           backdrop='static'
           bsStyle='primary' 
           animation={true} 
-          closeButton={false}
           onKeyPress={this.handleKeyDown}
         >
 

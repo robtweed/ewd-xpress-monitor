@@ -24,14 +24,14 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
 module.exports = function (controller, component) {
 
   component.onNewProps = function(newProps) {
-    console.log('OverviewContainer newProps: ' + JSON.stringify(newProps));
+    component.hideContainer = (newProps.status !== 'overview');
   };
 
   // display the overview panel when first rendered after login

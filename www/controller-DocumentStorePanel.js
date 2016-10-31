@@ -28,46 +28,63 @@
 
 */
 
-"use strict"
+module.exports = function (controller, component) {
 
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
+  component.onNewProps = function(newProps) {
+    console.log('ConsolePanel newProps: ' + JSON.stringify(newProps));
+  };
 
-var {
-  FormControl
-} = ReactBootstrap;
+  component.expanded = true;
 
-var LoginField = React.createClass({
+  var expandText = ' -->';
+	
+  component.expand = false;
+  component.isExpanded = function(keypath, value) {
+    return component.expand;
+  };
 
-  getInitialState: function() {
-    return {value:''}
-  },
-
-  componentWillMount: function() {
-    this.controller = require('./controller-LoginField')(this.props.controller, this);
-  },
-
-  render: function() {
-
-    //console.log('LoginField rendering');
-    //this.controller.updateComponentPath(this);
-
-    return (
-     <div> 
-      <FormControl
-        type='password'
-        autoFocus
-        value={this.state.value}
-        placeholder={this.props.placeholder}
-        bsStyle={this.validationState()}
-        ref={this.props.fieldname}
-        label={this.props.label}
-        onChange={this.handleChange}
-      />
-      <FormControl.Feedback />
-     </div>
-    )
+  var message = {
+    type: 'getGlobalDirectory'
+  };
+  controller.send(message, function(responseObj) {
+    component.data = {};
+    responseObj.message.forEach(function(name) {
+      component.data[name] = expandText;
+    });
+    component.setState({status: 'globalDirectory'});
+  });
+	
+  function index(obj,is, value) {
+    if (typeof is == 'string') {
+      return index(obj,is.split('.'), value);
+    }
+    else if (is.length==1 && value!==undefined) {
+      return obj[is[0]] = value;
+    }
+    else if (is.length==0) {
+      return obj;
+    }
+    else {
+      return index(obj[is[0]],is.slice(1), value);
+    }
   }
-});
 
-module.exports = LoginField;
+  component.nodeClicked = function(obj) {
+    if (obj.value === expandText) {
+      var message = {
+        type: 'getNextSubscripts',
+        params: {
+          path: obj.path,
+          expandText: expandText
+        }
+      };
+      controller.send(message, function(responseObj) {
+        index(component.data, obj.path, responseObj.message);
+        component.expand = true;
+        component.setState({status: 'nextSubscripts'});
+      });
+    }
+  };
+
+  return controller;
+};

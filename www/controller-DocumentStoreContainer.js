@@ -28,46 +28,15 @@
 
 */
 
-"use strict"
+module.exports = function (controller, component) {
 
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
+  component.onNewProps = function(newProps) {
+    component.hideContainer = (newProps.status !== 'docstore');
+  };
 
-var {
-  FormControl
-} = ReactBootstrap;
+  // don't display the console panel when first rendered after login
 
-var LoginField = React.createClass({
+  component.hideContainer = true;
 
-  getInitialState: function() {
-    return {value:''}
-  },
-
-  componentWillMount: function() {
-    this.controller = require('./controller-LoginField')(this.props.controller, this);
-  },
-
-  render: function() {
-
-    //console.log('LoginField rendering');
-    //this.controller.updateComponentPath(this);
-
-    return (
-     <div> 
-      <FormControl
-        type='password'
-        autoFocus
-        value={this.state.value}
-        placeholder={this.props.placeholder}
-        bsStyle={this.validationState()}
-        ref={this.props.fieldname}
-        label={this.props.label}
-        onChange={this.handleChange}
-      />
-      <FormControl.Feedback />
-     </div>
-    )
-  }
-});
-
-module.exports = LoginField;
+  return controller;
+};

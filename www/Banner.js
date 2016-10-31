@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -51,8 +51,22 @@ var Banner = React.createClass({
             {this.props.title}
           </Navbar.Brand>
           <Nav 
+            onSelect = {this.props.controller.navOptionSelected}
+          >
+            <NavItem
+              eventKey = "overview"
+            >
+              Overview
+            </NavItem>
+            <NavItem
+              eventKey = "docstore"
+            >
+              Document Store
+            </NavItem>
+          </Nav>
+          <Nav
             pullRight
-            onSelect = {this.props.controller.navOptionSelected} 
+            onSelect = {this.props.controller.navOptionSelected}
           >
             <NavItem
               eventKey = "logout"

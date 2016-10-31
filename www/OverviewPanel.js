@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  22 August 2016
+  31 October 2016
 
 */
 
@@ -79,7 +79,12 @@ var OverviewPanel = React.createClass({
     }
     else {
       return (
-        <Panel collapsible expanded={this.expanded} header={this.title}>
+        <Panel
+          collapsible
+          expanded={this.expanded}
+          header={this.title}
+          bsStyle="primary"
+	 >
           <Grid
             fluid = {true}
           >

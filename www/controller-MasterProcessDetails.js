@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  31 October 2016
 
 */
 
@@ -41,6 +41,13 @@ module.exports = function (controller, component) {
   component.pid = '';
   component.started = '';
   component.upTime = '';
+  component.master = {
+    memory: {
+      rss: 'Not available',
+      heapTotal: 'Not available',
+      heapUsed: 'Not available'
+    }
+  };
 
   controller.on('startTimers', function() {
     if (!controller.timers.masterProcess) {
@@ -54,14 +61,16 @@ module.exports = function (controller, component) {
     component.pid = messageObj.message.pid;
     component.started = messageObj.message.startTime;
     component.upTime = messageObj.message.upTime;
+    component.master.memory = messageObj.message.memory;
+
     controller.emit('startTimers');
-    /*
+
     if (!controller.timers.masterProcess) {
       controller.timers.masterProcess = setInterval(function() {
         controller.send({type: 'getMasterProcessDetails'});
       },30000);
     }
-    */
+
     component.setState({
       status: 'dataAvailable'
     });
