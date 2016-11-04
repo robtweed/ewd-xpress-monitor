@@ -28,63 +28,15 @@
 
 */
 
-"use strict"
+module.exports = function (controller, component) {
 
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
-var {
-  Nav,
-  Navbar,
-  NavItem
-} = ReactBootstrap;
+  component.onNewProps = function(newProps) {
+    component.hideContainer = (newProps.status !== 'sessions');
+  };
 
-var Banner = React.createClass({
+  // don't display the session panel when first rendered after login
 
-  render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
+  component.hideContainer = true;
 
-    return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "overview"
-            >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "logout"
-            >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
-    );
-  }
-});
-
-module.exports = Banner;
-
-
+  return controller;
+};

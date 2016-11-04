@@ -32,59 +32,84 @@
 
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
+var moment = require('moment');
 var {
-  Nav,
-  Navbar,
-  NavItem
+  Button,
+  Glyphicon,
+  OverlayTrigger,
+  Popover,
+  Table,
+  Tooltip
 } = ReactBootstrap;
 
-var Banner = React.createClass({
+var SessionTableRow = require('./SessionTableRow');
+
+var SessionTable = React.createClass({
+
+  getInitialState: function() {
+    return {
+      status: 'initial'
+    }
+  },
+
+  componentWillMount: function() {
+    this.controller = require('./controller-SessionTable')(this.props.controller, this);
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.onNewProps(newProps);
+  },
 
   render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
+
+    //console.log('Rendering SessionTable');
+    //var componentPath = this.controller.updateComponentPath(this);
+
+    var rows = [];
+    var row;
+    var session;
+    var expiry;
+    //console.log('this.props.sessions = ' + JSON.stringify(this.props.sessions));
+    for (var i = 0; i < this.props.sessions.length; i++) {
+      session = this.props.sessions[i];
+      expiry = moment(new Date(session.expiry * 1000)).format('DD MMM YY, h:mm:ss a');
+      row = (
+        <SessionTableRow
+          key = {session.id}
+          pid = {session.id}
+          application = {session.application}
+          token = {session.token}
+          expiry = {expiry}
+          disabled = {session.disabled}
+          controller={this.controller}
+        />
+      );
+      rows.push(row);
+    }
+
+    //console.log('session rows: ' + JSON.stringify(rows));
+
 
     return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "overview"
-            >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "logout"
-            >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
+        <Table 
+          responsive  
+          className = "overviewTable"
+        >
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Application</th>
+            <th>Expiry</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </Table>
     );
   }
 });
 
-module.exports = Banner;
-
-
+module.exports = SessionTable;

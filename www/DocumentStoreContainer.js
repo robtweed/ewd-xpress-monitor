@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  27 April 2016
+  4 November 2016
 
 */
 
@@ -62,6 +62,7 @@ var DocumentStoreContainer = React.createClass({
 
     return (
       <Grid
+        fluid = {true}
         className = {this.hideContainer ? 'hidden' : ''}
       >
         <Row>

@@ -28,63 +28,32 @@
 
 */
 
-"use strict"
+module.exports = function (controller, component) {
 
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
-var {
-  Nav,
-  Navbar,
-  NavItem
-} = ReactBootstrap;
+  component.refresh = function() {
+    var message = {
+      type: 'getSessions'
+    };
+    controller.send(message, function(responseObj) {
+      component.sessions = responseObj.message;
+      component.setState({status: 'gotSessions'});
+    });
+  };
 
-var Banner = React.createClass({
+  controller.on('stopSession', function(responseObj) {
+    component.refresh();
+  });
 
-  render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
+  controller.on('showSession', function(responseObj) {
+    component.sessionData = responseObj.message;
+    component.setState({status: 'showSession'});
+  });
 
-    return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "overview"
-            >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "logout"
-            >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
-    );
-  }
-});
+  component.onNewProps = function(newProps) {
+  };
 
-module.exports = Banner;
+  component.sessions = [];
+  component.sessionData = {};
 
-
+  return controller;
+};

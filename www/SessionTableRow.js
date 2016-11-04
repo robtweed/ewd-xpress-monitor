@@ -33,58 +33,95 @@
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
 var {
-  Nav,
-  Navbar,
-  NavItem
+  Button,
+  Glyphicon,
+  OverlayTrigger,
+  Popover,
+  Table,
+  Tooltip
 } = ReactBootstrap;
 
-var Banner = React.createClass({
+var SessionTableRow = React.createClass({
+
+  getInitialState: function() {
+    return {
+      status: 'initial'
+    }
+  },
+
+  componentWillMount: function() {
+    this.controller = require('./controller-SessionTableRow')(this.props.controller, this);
+    var id = 'Session' + this.props.pid + 'StopBtn';
+    this.stopTooltip = (
+      <Tooltip
+        id = {id}
+      >
+        Stop and Delete this Session
+      </Tooltip>
+    );
+    id = 'Session' + this.props.pid + 'ShowBtn';
+    this.showTooltip = (
+      <Tooltip
+        id = {id}
+      >
+        Show Session Details
+      </Tooltip>
+    );
+
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.onNewProps(newProps);
+  },
 
   render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
+
+    //console.log('Rendering SessionTableRow');
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
+      <tr>
+        <td>
+            {this.props.pid}
+        </td>
+        <td>{this.props.application}</td>
+        <td>{this.props.expiry}</td>
+        <td>
+          <OverlayTrigger 
+            placement="top" 
+            overlay={this.stopTooltip}
           >
-            <NavItem
-              eventKey = "overview"
+            <Button 
+              bsStyle="danger"
+              onClick = {this.stopSession}
+              bsSize="small"
+              disabled = {this.props.disabled}
             >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
+              <Glyphicon 
+                glyph="remove"
+              />
+            </Button>
+          </OverlayTrigger>
+        </td>
+        <td>
+          <OverlayTrigger 
+            placement="top" 
+            overlay={this.showTooltip}
           >
-            <NavItem
-              eventKey = "logout"
+            <Button 
+              bsStyle="info"
+              onClick = {this.showSession}
+              bsSize="small"
             >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
+              <Glyphicon 
+                glyph="list-alt"
+              />
+            </Button>
+          </OverlayTrigger>
+        </td>
+      </tr>
     );
   }
 });
 
-module.exports = Banner;
-
-
+module.exports = SessionTableRow;

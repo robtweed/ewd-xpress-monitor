@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  31 October 2016
+  4 November 2016
 
 */
 
@@ -34,8 +34,7 @@ var React = require('react');
 
 var OverviewContainer = require('./OverviewContainer');
 var DocumentStoreContainer = require('./DocumentStoreContainer');
-var ConsoleContainer = require('./ConsoleContainer');
-var MemoryContainer = require('./MemoryContainer');
+var SessionsContainer = require('./SessionsContainer');
 
 var Content = React.createClass({
 
@@ -70,6 +69,10 @@ var Content = React.createClass({
             status = {this.status} 
           /> 
           <DocumentStoreContainer
+            controller = {this.controller}
+            status = {this.status} 
+          />
+          <SessionsContainer
             controller = {this.controller}
             status = {this.status} 
           />

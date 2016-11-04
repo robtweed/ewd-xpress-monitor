@@ -1,6 +1,6 @@
 {
   "name": "ewd-xpress-monitor",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "React.js-based Monitor/Management Application for ewd-xpress",
   "main": "index.js",
   "scripts": {

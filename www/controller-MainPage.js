@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  31 October 2016
+  4 November 2016
 
 */
 
@@ -45,7 +45,8 @@ module.exports = function (controller, component) {
   // display generic EWD.js errors using toastr:
 
   controller.on('error', function(messageObj) {
-    controller.displayError(messageObj.message.error);
+    var error = messageObj.message.error || messageObj.message;
+    controller.displayError(error);
   });
 
   // publish the login response handler in this
@@ -98,6 +99,12 @@ module.exports = function (controller, component) {
 	  component.setState({
         status: 'docstore'
       });
+  });
+
+  controller.on('sessions', function() {
+    component.setState({
+      status: 'sessions'
+    });
   });
 
   controller.on('ewd-reregistered', function() {

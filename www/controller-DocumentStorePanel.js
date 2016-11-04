@@ -24,11 +24,24 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  31 October 2016
+  4 November 2016
 
 */
 
 module.exports = function (controller, component) {
+
+  component.refresh = function() {
+    var message = {
+      type: 'getGlobalDirectory'
+    };
+    controller.send(message, function(responseObj) {
+      component.data = {};
+      responseObj.message.forEach(function(name) {
+        component.data[name] = expandText;
+      });
+      component.setState({status: 'globalDirectory'});
+    });
+  };
 
   component.onNewProps = function(newProps) {
   };
@@ -36,23 +49,13 @@ module.exports = function (controller, component) {
   component.expanded = true;
 
   var expandText = ' -->';
-	
   component.expand = false;
   component.isExpanded = function(keypath, value) {
     return component.expand;
   };
 
-  var message = {
-    type: 'getGlobalDirectory'
-  };
-  controller.send(message, function(responseObj) {
-    component.data = {};
-    responseObj.message.forEach(function(name) {
-      component.data[name] = expandText;
-    });
-    component.setState({status: 'globalDirectory'});
-  });
-	
+  component.refresh();
+
   function index(obj,is, value) {
     if (typeof is == 'string') {
       return index(obj,is.split('.'), value);

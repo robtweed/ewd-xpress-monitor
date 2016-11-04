@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  31 October 2016
+  4 November 2016
 
 */
 
@@ -35,7 +35,11 @@ var ReactBootstrap = require('react-bootstrap');
 var Inspector = require('react-json-inspector');
 
 var {
-  Panel
+  Button,
+  Glyphicon,
+  OverlayTrigger,
+  Panel,
+  Tooltip
 } = ReactBootstrap;
 
 var DocumentStorePanel = React.createClass({
@@ -48,8 +52,32 @@ var DocumentStorePanel = React.createClass({
 
   componentWillMount: function() {
     this.controller = require('./controller-DocumentStorePanel')(this.props.controller, this);
+
+    this.tooltip = (
+      <Tooltip
+        id = "DocumentRefreshBtn"
+      >
+        Refresh
+      </Tooltip>
+    );
+
     this.title = (
-      <h1>Documents</h1>
+      <span>
+        <b>Documents</b>
+        <OverlayTrigger
+          placement="top"
+            overlay={this.tooltip}
+                >
+          <Button
+            bsClass="btn btn-success pull-right"
+            onClick = {this.refresh}
+          >
+            <Glyphicon
+              glyph="refresh"
+            />
+          </Button>
+        </OverlayTrigger>
+      </span>
     );
   },
 

@@ -32,59 +32,64 @@
 
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
+var Inspector = require('react-json-inspector');
+
 var {
-  Nav,
-  Navbar,
-  NavItem
+  Button,
+  Glyphicon,
+  OverlayTrigger,
+  Panel,
+  Tooltip
 } = ReactBootstrap;
 
-var Banner = React.createClass({
+var SessionDetails = React.createClass({
+
+  getInitialState: function() {
+    return {
+      status: 'initial'
+    }
+  },
+
+  componentWillMount: function() {
+    this.controller = require('./controller-SessionDetails')(this.props.controller, this);
+  },
+  
+  componentWillReceiveProps: function(newProps) {
+    this.onNewProps(newProps);
+  },
 
   render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
 
+    //var componentPath = this.controller.updateComponentPath(this);
+
+   //console.log('rendering SessionDetails - ' + JSON.stringify(this.data));
+
+    if (!this.data) {
+      return (
+        <div></div>
+      );
+    }
+
+    // create a clone of data to ensure re-rendering
+    var newData = {};
+    Object.assign(newData, this.data);
+   
     return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "overview"
-            >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "logout"
-            >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
+      <Panel 
+        collapsible 
+        expanded={this.expanded} 
+        header = {this.title}
+        bsStyle="info"
+      >
+        <Inspector 
+          data={newData}
+          isExpanded = {this.isExpanded}
+          onClick={this.nodeClicked}
+          search={false}
+        />
+      </Panel>
     );
   }
 });
 
-module.exports = Banner;
-
-
+module.exports = SessionDetails;

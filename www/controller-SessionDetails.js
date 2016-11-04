@@ -28,63 +28,63 @@
 
 */
 
-"use strict"
+module.exports = function (controller, component) {
 
-var React = require('react');
-var ReactBootstrap = require('react-bootstrap');
-var {
-  Nav,
-  Navbar,
-  NavItem
-} = ReactBootstrap;
+  component.data = {};
+  component.token = '';
+  component.sessionId = '';
 
-var Banner = React.createClass({
+  component.title = 'Session Data';
 
-  render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
+  component.onNewProps = function(newProps) {
+    component.data = newProps.data.data || {};
+    if (newProps.data.id && newProps.data.id !== '') {
+      component.title = 'Session ' + newProps.data.id;
+    }
+    if (newProps.data.token) component.token = newProps.data.token;
+  };
 
-    return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "overview"
-            >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "logout"
-            >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
-    );
+  component.expanded = true;
+
+  var expandText = ' -->';	
+  component.expand = false;
+  component.isExpanded = function(keypath, value) {
+    return component.expand;
+  };
+
+
+  function index(obj,is, value) {
+    if (typeof is == 'string') {
+      return index(obj,is.split('.'), value);
+    }
+    else if (is.length==1 && value!==undefined) {
+      return obj[is[0]] = value;
+    }
+    else if (is.length==0) {
+      return obj;
+    }
+    else {
+      return index(obj[is[0]],is.slice(1), value);
+    }
   }
-});
 
-module.exports = Banner;
+  component.nodeClicked = function(obj) {
+    if (obj.value === expandText) {
+      var message = {
+        type: 'getSessionSubscripts',
+        params: {
+          path: obj.path,
+          expandText: expandText,
+          token: component.token
+        }
+      };
+      controller.send(message, function(responseObj) {
+        index(component.data, obj.path, responseObj.message.data);
+        component.expand = true;
+        component.setState({status: 'updated'});
+      });
+    }
+  };
 
-
+  return controller;
+};

@@ -33,58 +33,49 @@
 var React = require('react');
 var ReactBootstrap = require('react-bootstrap');
 var {
-  Nav,
-  Navbar,
-  NavItem
+  Grid,
+  Row,
+  Col
 } = ReactBootstrap;
 
-var Banner = React.createClass({
+var SessionsPanel = require('./SessionsPanel');
+
+var DocumentStoreContainer = React.createClass({
+
+  getInitialState: function() {
+    return {
+      status: 'initial'
+    }
+  },
+
+  componentWillMount: function() {
+    this.controller = require('./controller-SessionsContainer')(this.props.controller, this);
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.onNewProps(newProps);
+  },
 
   render: function() {
-    //console.log('render Banner');
-    //this.props.controller.updateComponentPath(this);
+
+    //var componentPath = this.controller.updateComponentPath(this);
 
     return (
-      <div>
-        <Navbar inverse >
-          <Navbar.Brand>
-            {this.props.title}
-          </Navbar.Brand>
-          <Nav 
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "overview"
-            >
-              Overview
-            </NavItem>
-            <NavItem
-              eventKey = "docstore"
-            >
-              Document Store
-            </NavItem>
-            <NavItem
-              eventKey = "sessions"
-            >
-              Sessions
-            </NavItem>
-          </Nav>
-          <Nav
-            pullRight
-            onSelect = {this.props.controller.navOptionSelected}
-          >
-            <NavItem
-              eventKey = "logout"
-            >
-              Logout
-            </NavItem>
-          </Nav>
-        </Navbar>
-      </div>
+      <Grid
+        fluid = {true}
+        className = {this.hideContainer ? 'hidden' : ''}
+      >
+        <Row>
+          <Col md={12}>
+            <SessionsPanel
+              controller = {this.controller}
+            />
+          </Col>
+        </Row>
+      </Grid>
     );
+
   }
 });
 
-module.exports = Banner;
-
-
+module.exports = DocumentStoreContainer;
