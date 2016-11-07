@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  4 November 2016
+  7 November 2016
 
 */
 
@@ -37,9 +37,15 @@ module.exports = function (controller, component) {
   component.title = 'Session Data';
 
   component.onNewProps = function(newProps) {
+    //console.log('controller-SessionDetails newProps: ' + JSON.stringify(newProps));
     component.data = newProps.data.data || {};
     if (newProps.data.id && newProps.data.id !== '') {
       component.title = 'Session ' + newProps.data.id;
+    }
+    else {
+      // previously-displayed session no longer exists
+      component.title = 'Session Data';
+      component.data = {};
     }
     if (newProps.data.token) component.token = newProps.data.token;
   };
@@ -79,9 +85,16 @@ module.exports = function (controller, component) {
         }
       };
       controller.send(message, function(responseObj) {
-        index(component.data, obj.path, responseObj.message.data);
-        component.expand = true;
-        component.setState({status: 'updated'});
+        if (responseObj.message.error) {
+          // session no longer exists, so refresh the entire session display
+          //console.log('session no longer exists so refresh session display');
+          controller.emit('refreshSessionDisplay');
+        }
+        else {
+          index(component.data, obj.path, responseObj.message.data);
+          component.expand = true;
+          component.setState({status: 'updated'});
+        }
       });
     }
   };

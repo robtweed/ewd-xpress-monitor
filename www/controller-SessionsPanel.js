@@ -24,7 +24,7 @@
  |  limitations under the License.                                                  |
  ------------------------------------------------------------------------------------
 
-  4 November 2016
+  7 November 2016
 
 */
 
@@ -44,9 +44,22 @@ module.exports = function (controller, component) {
     component.refresh();
   });
 
+  controller.on('refreshSessionDisplay', function() {
+    component.sessionData = {};
+    component.refresh();
+  });
+
   controller.on('showSession', function(responseObj) {
-    component.sessionData = responseObj.message;
-    component.setState({status: 'showSession'});
+
+    if (responseObj.message.error) {
+      // the selected session no longer exists, so refresh the session table
+      component.sessionData = {};
+      component.refresh();
+    }
+    else {
+      component.sessionData = responseObj.message;
+      component.setState({status: 'showSession'});
+    }
   });
 
   component.onNewProps = function(newProps) {
